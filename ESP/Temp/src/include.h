@@ -1,10 +1,4 @@
-#define WIFI_SSID "YOUR WIFI"
-#define WIFI_PASS "YOUR PASS"
-
-#define MQTT_SERVER "192.168.0.2"
-#define MQTT_PORT 1883
-#define MQTT_USER ""
-#define MQTT_PASS ""
+#include "../../config.h"
 
 #define I2C_ADDR 0x48
 #define I2C_SDA 14
