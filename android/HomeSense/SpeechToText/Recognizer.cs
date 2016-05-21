@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.Content;
+using HomeSense.Commands;
 
 namespace HomeSense.SpeechToText
 {
     public class Recognizer
     {
-        private bool _enabled;
         private readonly Context _context;
 
         public Recognizer(Context context)
@@ -18,7 +19,6 @@ namespace HomeSense.SpeechToText
         {
             if (MicrophoneTester.Test(_context))
             {
-                _enabled = true;
                 Console.WriteLine("Detected microphone!");
             }
 
@@ -26,14 +26,62 @@ namespace HomeSense.SpeechToText
 
         public void HandleRecognizedText(IList<string> recognizedWords)
         {
-            foreach (var recognizedWord in recognizedWords)
-            {
-                Console.WriteLine(recognizedWord);
-            }
+            var command = recognizedWords.Aggregate((i, j) => i + ' ' + j);
+                Console.WriteLine(command);
+                SendSpeechCommand(command);
         }
 
-        private void ProcessSpeechCommand(string command)
+        private static void SendSpeechCommand(string command)
         {
+            var commandRequest = new CommandRequest();
+            string parameters = null; 
+
+            //temperature commands
+            if (command.Contains("heat"))
+            {
+                if (command.Contains("on"))
+                {
+                    parameters = "heat-on";
+                }
+                else if (command.Contains("off"))
+                {
+                    parameters = "heat-off";
+                }
+            }
+            //music commands
+            else if (command.Contains("music"))
+            {
+                if (command.Contains("on"))
+                {
+                    parameters = "music-on";
+                }
+                else if (command.Contains("off"))
+                {
+                    parameters = "music-off";
+                }
+            }
+            //light commands
+            else if (command.Contains("light"))
+            {
+                if (command.Contains("on"))
+                {
+                    parameters = "light-on";
+                }
+                else if (command.Contains("off"))
+                {
+                    parameters = "light-off";
+                }
+            }
+            if (parameters != null)
+                commandRequest.Send(parameters);
+        }
+
+        private string ProcessSpeechCommand(string inputCommand)
+        {
+            var outputCommand = inputCommand;
+
+            //ToDo: process cmd here
+            return outputCommand; 
         }
     }
 }

@@ -51,9 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\CommandRequest.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="SpeechToText\SpeechCommandsConfiguration.cs" />
     <Compile Include="SpeechToText\MicrophoneTester.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
