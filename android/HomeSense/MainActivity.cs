@@ -11,7 +11,7 @@ using Java.Util;
 
 namespace HomeSense
 {
-    [Activity(Label = "HomeSense", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "HomeSense", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Black.NoTitleBar.Fullscreen")]
     public class MainActivity : Activity
     {
         private static readonly int Voice;

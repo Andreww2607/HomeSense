@@ -72,16 +72,18 @@ namespace HomeSense.SpeechToText
                     parameters = "light-off";
                 }
             }
+            //feeling tired
+            else if (command.Contains("feeling"))
+            {
+                if (command.Contains("tired"))
+                {
+                    parameters = "feeling-tired";
+                }
+
+
+            }
             if (parameters != null)
                 commandRequest.Send(parameters);
-        }
-
-        private string ProcessSpeechCommand(string inputCommand)
-        {
-            var outputCommand = inputCommand;
-
-            //ToDo: process cmd here
-            return outputCommand; 
         }
     }
 }
