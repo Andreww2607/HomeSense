@@ -14,6 +14,8 @@ void setup() {
   Serial.begin(115200);
 
   tcnInit();
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, HIGH);
 
   WiFi.mode(WIFI_STA);
   WiFi.begin(WIFI_SSID, WIFI_PASS);
@@ -33,9 +35,9 @@ void loop() {
     tcnReadTemp(temp);
     temperaturePublish.publish(temp);
 
-    digitalWrite(LED_PIN, HIGH);
-    delay(100);
     digitalWrite(LED_PIN, LOW);
+    delay(100);
+    digitalWrite(LED_PIN, HIGH);
   }
 }
 
