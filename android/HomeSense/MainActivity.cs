@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Speech;
+using Android.Webkit;
 using Android.Widget;
 using HomeSense.SpeechToText;
 using Java.Util;
@@ -22,6 +23,13 @@ namespace HomeSense
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
+            //webform view
+            var localWebView = FindViewById<WebView>(Resource.Id.LocalWebView);
+            localWebView.SetWebViewClient(new WebViewClient());
+            localWebView.Settings.JavaScriptEnabled = true;
+            localWebView.LoadUrl("http://192.168.0.2:1880/ui");
+
+            //speech to text button
             var button = FindViewById<Button>(Resource.Id.MyButton);
             button.Click += delegate
             {
@@ -38,7 +46,6 @@ namespace HomeSense
                 voiceIntent.PutExtra(RecognizerIntent.ExtraMaxResults, 1);
                 voiceIntent.PutExtra(RecognizerIntent.ExtraLanguage, Locale.Default);
                 StartActivityForResult(voiceIntent, Voice);
-
             };
         }
 
