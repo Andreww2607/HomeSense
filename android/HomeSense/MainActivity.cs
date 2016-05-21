@@ -11,7 +11,7 @@ using Java.Util;
 
 namespace HomeSense
 {
-    [Activity(Label = "HomeSense", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.Black.NoTitleBar.Fullscreen")]
+    [Activity(Label = "HomeSense")]
     public class MainActivity : Activity
     {
         private static readonly int Voice;
@@ -27,6 +27,8 @@ namespace HomeSense
             var localWebView = FindViewById<WebView>(Resource.Id.LocalWebView);
             localWebView.SetWebViewClient(new WebViewClient());
             localWebView.Settings.JavaScriptEnabled = true;
+            localWebView.SetVerticalScrollbarOverlay(true);
+           
             localWebView.LoadUrl("http://192.168.0.2:1880/ui");
 
             //speech to text button
