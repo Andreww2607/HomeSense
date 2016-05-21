@@ -8,7 +8,7 @@ WiFiClient wifi;
 Adafruit_MQTT_Client mqtt(&wifi, MQTT_SERVER, MQTT_PORT, MQTT_USER, MQTT_PASS);
 
 const char PRESENCE_TOPIC[] = "sensors/presence";
-Adafruit_MQTT_Publish PresencePublish = Adafruit_MQTT_Publish(&mqtt, PRESENCE_TOPIC);
+Adafruit_MQTT_Publish presencePublish = Adafruit_MQTT_Publish(&mqtt, PRESENCE_TOPIC);
 
 void setup() {
   Serial.begin(115200);
@@ -24,40 +24,14 @@ void loop() {
   static unsigned long timer = 0;
   unsigned long now = millis();
   if (now > timer) {
-    timer = now + 50;
+    timer = now + 1000;
 
-    bool statechanged;
-    bool isPresent;
-
-    if(PIN_PPRES==HIGH)
-    {
-        if(isPresent == false)
-        {
-          isPresent=!isPresent;
-          statechanged=true;
-        }
-        else
-        {
-          statechanged=false;
-        }
+    static int lastState = 0xFF;
+    int state = digitalRead(PIN_PPRES);
+    if (state != lastState) {
+      lastState = state;
+      presencePublish.publish(state ? 1 : 0);
     }
-    if(PIN_PPRES==LOW)
-    {
-      if(isPresent == true)
-      {
-        isPresent=!isPresent;
-        statechanged=true;
-      }
-      else
-      {
-        statechanged=false;
-      }
-
-    }
-  if(statechanged)
-  {
-    PresencePublish.publish(isPresent);
-  }
   }
 }
 
