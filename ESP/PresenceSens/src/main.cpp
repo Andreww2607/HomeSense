@@ -24,13 +24,14 @@ void loop() {
   static unsigned long timer = 0;
   unsigned long now = millis();
   if (now > timer) {
-    timer = now + 1000;
+    timer = now + 500;
 
     static int lastState = 0xFF;
     int state = digitalRead(PIN_PPRES);
     if (state != lastState) {
-      lastState = state;
-      presencePublish.publish(state ? 1 : 0);
+      if (presencePublish.publish(state ? 1 : 0)) {
+        lastState = state;
+      }
     }
   }
 }
