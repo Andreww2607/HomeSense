@@ -9,18 +9,18 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.Threading.Tasks;
 
 namespace HomeSense
 {
-    [Activity(Label = "Evolve", MainLauncher = true, NoHistory = true, Theme = "@style/Theme.Splash")]
+    [Activity(Label = "Evolve",  NoHistory = true, Theme = "@style/Theme.Splash")]
     public class SplashScreen : Activity
     {
-        protected override void OnCreate(Bundle bundle)
+        protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            var intent = new Intent(this, typeof(MainActivity));
-            StartActivity(intent);
-            Finish();
+            SetContentView(Resource.Layout.Splash);
+
         }
     }
 }

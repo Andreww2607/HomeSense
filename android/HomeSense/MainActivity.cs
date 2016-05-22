@@ -8,28 +8,40 @@ using Android.Webkit;
 using Android.Widget;
 using HomeSense.SpeechToText;
 using Java.Util;
+using System.Threading.Tasks;
+using Android.Views;
 
 namespace HomeSense
 {
-    [Activity(Label = "HomeSense")]
+    [Activity(Label = "HomeSense", MainLauncher = true, Icon = "@drawable/iconn", Theme = "@android:style/Theme.Black.NoTitleBar.Fullscreen")]
     public class MainActivity : Activity
     {
         private static readonly int Voice;
 
-        protected override void OnCreate(Bundle bundle)
+        protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
+            //spalsh  screen
+            var gridView = FindViewById<GridView>(Resource.Id.gridview);
+            var splashImage = FindViewById<ImageView>(Resource.Id.splashImageView); 
+
             //webform view
             var localWebView = FindViewById<WebView>(Resource.Id.LocalWebView);
             localWebView.SetWebViewClient(new WebViewClient());
             localWebView.Settings.JavaScriptEnabled = true;
             localWebView.SetVerticalScrollbarOverlay(true);
-           
+
             localWebView.LoadUrl("http://192.168.0.2:1880/ui");
+
+            await Task.Delay(7000);
+
+            splashImage.Visibility = ViewStates.Invisible; 
+            gridView.Visibility = ViewStates.Invisible;
+         
 
             //speech to text button
             var button = FindViewById<Button>(Resource.Id.MyButton);
