@@ -1,6 +1,6 @@
 #include "../../config.h"
 
-#define GAS_PIN 13
-#define PIN_PPRES 12
+#define PIN_RELAY1 14
+#define PIN_RELAY2 12
 
 void mqttConnect();
